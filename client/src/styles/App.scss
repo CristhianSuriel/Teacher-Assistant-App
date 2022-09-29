@@ -1,0 +1,233 @@
+// variables
+$black: rgb(22, 22, 22);
+$green: rgb(52, 103, 81);
+$red: rgb(200, 75, 49);
+$cream: rgb(236, 219, 186);
+
+// Mixins
+@mixin flex-default($direction: column, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin wrapper($color) {
+  width: 80%;
+  height: 100vh;
+  color: $color;
+}
+
+//APP changes
+.App {
+  min-height: 100vh;
+  max-width: 100%;
+  background: linear-gradient(45deg, rgba($green, 0.8) 50%, rgba($green,1) 50%, rgba($green,0.8) 70%);
+}
+a {
+  display: inline-block;
+  &:hover {
+    color: $red;
+  }
+}
+[disabled] {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: gray !important;
+}
+
+// SIDEBAR
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  color: $cream;
+  transition: color 0.5s;
+}
+.bm-burger-button {
+  position: fixed;
+  width: 2.1em;
+  height: 2em;
+  right: 2em;
+  top: 2em;
+}
+.bm-burger-bars {
+  background: $black;
+  border-radius: 1em;
+}
+.bm-cross {
+  background: $cream;
+}
+.bm-menu {
+  background: rgba($black, 0.9);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+.bm-morph-shape {
+  fill: $black;
+}
+.bm-item-list {
+  @include flex-default(column, space-between);
+}
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+//HOME COMPONENT
+.home-wrapper {
+  @include wrapper($cream);
+  @include flex-default;
+  h1 {
+    font-size: 4rem;
+    max-width: 100%;
+  }
+}
+
+// PASSWORD GENERATOR COMPONENT
+.pass-gen-wrapper {
+  @include wrapper($cream);
+  @include flex-default();
+  .pass-gen-container {
+    @include flex-default();
+    border-radius: 1em;
+    background-color: rgba($black, 0.7);
+    height: 80%;
+    width: 60%;
+  }
+}
+.result-bar {
+  width: 90%;
+  height: 20%;
+  text-align: center;
+  border: 0px;
+  border-radius: 2em;
+  font-size: 2rem;
+  background-color: rgba($black, 0.7);
+  color: $cream;
+  &:focus, &:hover {
+    background-color: rgba($black,0.8);
+    cursor: grab;
+  }
+}
+.pass-btn {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  outline: none;
+  color: $cream;
+  background-color: rgba($black,0.7);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px $cream;
+  &:hover {
+    color: $red;
+    background-color: rgba($black,0.8);
+    cursor: pointer;
+  }
+  &:active {
+    background-color: rgba($black,0.8);
+    box-shadow: 0 5px rgba($cream,0.8);
+    transform: translateY(4px);
+  }
+}
+
+// NOTES COMPONENT
+
+.notes-wrapper {
+  @include wrapper($black);
+  @include flex-default;
+  height: 100%;
+}
+// SEARCH BAR SECTION 
+.search-bar {
+  @include flex-default(row);
+  margin: 1em 0px;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: rgba($black, 0.8);
+  width: 80%;
+  min-height: 10%;
+  input {
+    flex-basis: 90%;
+    background-color: rgba($black, 0);
+    border: 0px none;
+    outline: none;
+    color: $cream;
+    font-size: 2em;
+    max-width: 100%;
+    min-height: 100%;
+    &::placeholder {
+      color: darken($cream, 50%);
+    }
+  }
+  .search-icon {
+    flex-basis: 10%;
+    max-width: 100%;
+    color: $cream;
+    font-size: 2em;
+    color: darken($cream, 50%);
+  }
+}
+
+// NOTES SECTION 
+.all-notes {
+  height: 75%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-row-gap: 6px;
+}
+// INDIVIDUAL NOTES
+.note-container {
+  background-color: rgba($black, 0.8);
+  @include flex-default;
+  width: min(80%, 20em);
+  min-height: 20em;
+  padding: 1%;
+  border-radius: 1rem;
+  input, textarea, .note-extra {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  input, textarea {
+    background: none;
+    padding: 1em;
+    outline: none;
+    resize: none;
+    color: lighten($cream, 10%);
+    font-size: 1.3rem;
+    &::placeholder {
+      color: darken($cream, 50%);
+      font-size: 1.3rem;
+    }
+  }
+  .note-extra {
+    @include flex-default(row, space-between);
+    color: darken($cream, 5%);
+    font-size: 1.3rem;
+  }
+  .note-btn{
+    border: 1px solid rgba($black, 0.9);
+    border-radius: 1em;
+    padding: 0.2em 0.5em;
+    &:hover {
+      background-color: $black;
+    }
+  }
+  .delete:hover {
+    color: $red;
+    cursor: pointer;
+  }
+  .save:hover {
+    color: lighten($green, 20%);
+    cursor: pointer;
+  }
+}
+
+// RESPOSINVE MEDIA
+
+@media(max-width: 800px) {
+  .result-bar {font-size: 1rem};
+  .pass-btn {padding: 10px 15px;};
+  .all-notes {grid-template-columns: 100%;}
+}
